@@ -1,6 +1,6 @@
 # Curso Full Cycle - Service Mesh com Istio 
 
-###1. Instalação 
+### 1. Instalação 
 
 ###### Criar um cluster com k3d, instalar istio no cluster, injetar o sidecar proxy e instalar os addons *prometheus, kiali, jaeger e grafana*.
 1. `k3d cluster create -p "8000:30000@loadbalancer" --agents 2`
@@ -35,7 +35,7 @@ Ver os pods rodando
 * Repositório com uma lista de addons
 https://github.com/istio/istio/tree/release-1.12/samples/addons
 
-###2. Introdução
+### 2. Introdução
 ###### Service Mesh 
 - Você Garante a Observabilidade e Rastreamento de Suas Aplicações.
 - É uma camada extra adicional junto ao cluster (do kubernetes, apache mesos, consul e nomad)
@@ -59,4 +59,4 @@ https://github.com/istio/istio/tree/release-1.12/samples/addons
 ###### Arquitetura Sidecar Proxy
 <img src="readme_imgs/arch.svg" alt="drawing" width="700"/>
 
-###3. ~~Gerenciamento de tráfego~~
+### 3. ~~Gerenciamento de tráfego~~

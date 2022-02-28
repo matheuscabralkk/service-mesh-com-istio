@@ -1,6 +1,6 @@
 # Curso Full Cycle - Service Mesh com Istio 
 
-[Documentação do Istio Service Mesh]([https://link](https://istio.io/latest/docs/))
+Documentação do Istio Service Mesh: https://istio.io/latest/docs/
 
 ### 1. Instalação 
 

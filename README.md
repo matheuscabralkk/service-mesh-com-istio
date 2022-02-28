@@ -1,5 +1,7 @@
 # Curso Full Cycle - Service Mesh com Istio 
 
+###### [Documentação do Istio Service Mesh]([https://link](https://istio.io/latest/docs/))
+
 ### 1. Instalação 
 
 ###### Criar um cluster com k3d, instalar istio no cluster, injetar o sidecar proxy e instalar os addons *prometheus, kiali, jaeger e grafana*.
@@ -21,6 +23,25 @@ Ver os pods rodando
 7. Utilizando os addons
    1. `kubectl get po -n istio-system` Ver os addons instalados
    2. `istioctl dashboard kiali` vai abrir o dashboard do kiali na porta 20001
+8. Pra testarmos o tráfego na rede
+   1. `while true; do curl http://localhost:8000; echo; sleep 0.5; done;`
+   
+###### Utilizando Fortio
+8. Instalar seguindo a [documentação](https://istio.io/latest/docs/tasks/traffic-management/circuit-breaking/#adding-a-client)
+   1. `kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/httpbin/sample-client/fortio-deploy.yaml`
+   2. `export FORTIO_POD=$(kubectl get pods -l app=fortio -o 'jsonpath={.items[0].metadata.name}')`
+      1. `echo $FORTIO_POD`
+   3. `kubectl exec "$FORTIO_POD" -c fortio -- fortio load -c 2 -qps 0 -t 200s -loglevel warning http://nginx-service:8000`
+      1. Vamos executar um comando no pod do Fortio pra carregar com 2 conexões concorrentes, fazendo automaticamente a quantidade por segundo, rodando durante 200 segundos, logando se tiver algum warning mandando pro `http://nginx-service:8000`
+
+
+###### Consistent Hash
+Vai utilizar sempre um pod pra cada client (por ip)
+1. pra testar: `curl --header "x-user: m" http://nginx-service:8000` -> vai cair sempre em um cluster, se mudar o x-user, pode ser q caia qm outro
+
+###### Testar o Circuit breaker
+1. Simular 20 requisiçoes (metade retorna 200 e metade retorna 504):
+   `kubectl exec "$FORTIO_POD" -c fortio -- fortio load -c 2 -qps 0 -n 20 -loglevel Warning http://servicex-service`
 
 ###### Outros comandos úteis citados na aula
 * `k3d cluster delete` deletar os clusters kubernetes

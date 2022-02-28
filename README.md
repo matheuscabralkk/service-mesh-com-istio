@@ -59,4 +59,16 @@ https://github.com/istio/istio/tree/release-1.12/samples/addons
 ###### Arquitetura Sidecar Proxy
 <img src="readme_imgs/arch.svg" alt="drawing" width="700"/>
 
-### 3. ~~Gerenciamento de tráfego~~
+### 3. Gerenciamento de tráfego
+- Ingress Gateway
+  - trabalha nos layers 4-6
+  - Componente do **Istio** que recebe conexões de fora do cluster (parecido com o **ingress do Kubernetes**)
+  - Ligado diretamente com o **Virtual Service** que é uma espécie de **roteador**
+  - O **ingress gateway** libera a entrada do trafego e o **Virtual Service** faz o roteamento desse tráfego
+  - Recursos do **Virtual Service**
+    - Match; Retries; Fault Injection; timeout; Subsets (Destination Roles).
+  - **Destination Roles**
+    - **Selector**: filtra versão do sistema pra trabalhar;
+    - **tipo de Load Balancer**;
+    - **Locality**: balanceamento baseado em localidade
+    - **Circuit Breaker**;
